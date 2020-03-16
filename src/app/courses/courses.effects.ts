@@ -6,7 +6,7 @@ import { map, concatMap } from "rxjs/operators";
 import { allCoursesLoaded } from "./course.action";
 
 @Injectable()
-export class CoursesEffects{
+export class CoursesEffects {
 
   loadCourses$ = createEffect(
     () =>  this.actions$
