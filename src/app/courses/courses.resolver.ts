@@ -22,23 +22,18 @@ export class CoursesResolver implements Resolve<boolean> {
 
   resolve(route: ActivatedRouteSnapshot,
            state: RouterStateSnapshot): Observable<boolean> {
-        return this.coursesService.getAll()
-            .pipe(
-              map(courses => !!courses)
-            );
-            return this.store
-              .pipe(
-                select(areCoursesLoaded),
-                tap((coursesLoaded) => {
-                  if(!this.loading && !coursesLoaded) {
-                    this.loading = true;
-                    this.store.dispatch(loadAllCourses());
-                  }
 
-                }),
-                filter(coursesLoaded => coursesLoaded),
-                first(),
-                finalize( () => this.loading = false)
-              );
+        return this.coursesService.loaded$
+            .pipe(
+              tap(
+                loaded => {
+                  if (!loaded) {
+                    this.coursesService.getAll();
+                  }
+                }
+              ),
+              filter(loaded => !!loaded),
+              first()
+            );
            }
 }

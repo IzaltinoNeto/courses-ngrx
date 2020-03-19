@@ -9,6 +9,7 @@ import {CoursesHttpService} from '../services/courses-http.service';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../../reducers';
 import { selectBeginnerCourses, selectAdvancedCourses, selectPromoTotal } from '../courses.selectors';
+import { CourseEntityService } from '../services/course-entity.service';
 
 
 
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
       private dialog: MatDialog,
+      private courseService: CourseEntityService,
       private store: Store<AppState>) {
 
     }
